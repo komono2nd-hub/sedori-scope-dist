@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "adapters": [
+    {
+      "id": "rakuten",
+      "displayName": "楽天市場",
+      "engine": "api",
+      "endpoint": "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401",
+      "defaultParams": {
+        "format": "json",
+        "hits": "10",
+        "sort": "+itemPrice"
+      },
+      "rate": {
+        "minIntervalMs": 3000,
+        "jitterMs": 1000
+      }
+    },
+    {
+      "id": "yahoo",
+      "displayName": "Yahoo!ショッピング",
+      "engine": "api",
+      "endpoint": "https://shopping.yahooapis.jp/ShoppingWebService/V3/itemSearch",
+      "defaultParams": {
+        "results": "10",
+        "sort": "+price"
+      },
+      "rate": {
+        "minIntervalMs": 3000,
+        "jitterMs": 1000
+      }
+    },
+    {
+      "id": "amazon",
+      "displayName": "Amazon",
+      "engine": "ext-fetch",
+      "endpoint": "",
+      "defaultParams": {},
+      "rate": {
+        "minIntervalMs": 5000,
+        "jitterMs": 2000
+      },
+      "extFetch": {
+        "searchUrl": "https://www.amazon.co.jp/s?k={q}",
+        "baseUrl": "https://www.amazon.co.jp",
+        "itemSelector": "div[data-component-type=\"s-search-result\"]",
+        "title": {
+          "selector": "h2 span"
+        },
+        "price": {
+          "selector": "span.a-price-whole"
+        },
+        "url": {
+          "selector": "a.a-link-normal[href*=\"/dp/\"]",
+          "attr": "href"
+        },
+        "image": {
+          "selector": "img.s-image",
+          "attr": "src"
+        },
+        "condition": "unknown",
+        "maxItems": 15
+      }
+    },
+    {
+      "id": "mercari",
+      "displayName": "メルカリ",
+      "engine": "ext-fetch",
+      "endpoint": "",
+      "defaultParams": {},
+      "rate": {
+        "minIntervalMs": 5000,
+        "jitterMs": 2000
+      },
+      "extFetch": {
+        "searchUrl": "https://jp.mercari.com/search?keyword={q}",
+        "baseUrl": "https://jp.mercari.com",
+        "renderInTab": true,
+        "itemSelector": "li[data-testid=\"item-cell\"]",
+        "title": {
+          "selector": "span[data-testid=\"thumbnail-item-name\"]"
+        },
+        "price": {
+          "selector": "span[class*=\"number__\"]"
+        },
+        "url": {
+          "selector": "a",
+          "attr": "href"
+        },
+        "image": {
+          "selector": "img",
+          "attr": "src"
+        },
+        "condition": "used",
+        "maxItems": 20
+      }
+    },
+    {
+      "id": "rakuma",
+      "displayName": "ラクマ",
+      "engine": "ext-fetch",
+      "endpoint": "",
+      "defaultParams": {},
+      "rate": {
+        "minIntervalMs": 5000,
+        "jitterMs": 2000
+      },
+      "extFetch": {
+        "searchUrl": "https://fril.jp/s?query={q}",
+        "baseUrl": "https://fril.jp",
+        "itemSelector": "div.item",
+        "title": {
+          "selector": ".item-box__item-name"
+        },
+        "price": {
+          "selector": ".item-box__item-price",
+          "regex": "[0-9,，０-９]+"
+        },
+        "url": {
+          "selector": "a.link_search_image",
+          "attr": "href"
+        },
+        "image": {
+          "selector": "img",
+          "attr": "data-original"
+        },
+        "condition": "used",
+        "maxItems": 20
+      }
+    },
+    {
+      "id": "yahoo_auction",
+      "displayName": "ヤフオク",
+      "engine": "ext-fetch",
+      "endpoint": "",
+      "defaultParams": {},
+      "rate": {
+        "minIntervalMs": 5000,
+        "jitterMs": 2000
+      },
+      "extFetch": {
+        "searchUrl": "https://auctions.yahoo.co.jp/search/search?p={q}",
+        "baseUrl": "https://auctions.yahoo.co.jp",
+        "itemSelector": "li.Product",
+        "title": {
+          "selector": "a.Product__titleLink"
+        },
+        "price": {
+          "selector": ".Product__priceValue"
+        },
+        "url": {
+          "selector": "a.Product__titleLink",
+          "attr": "href"
+        },
+        "image": {
+          "selector": "img.Product__imageData",
+          "attr": "src"
+        },
+        "condition": "used",
+        "maxItems": 20
+      }
+    },
+    {
+      "id": "surugaya",
+      "displayName": "駿河屋",
+      "engine": "ext-fetch",
+      "endpoint": "",
+      "defaultParams": {},
+      "rate": {
+        "minIntervalMs": 5000,
+        "jitterMs": 2000
+      },
+      "extFetch": {
+        "searchUrl": "https://www.suruga-ya.jp/search?category=&search_word={q}",
+        "baseUrl": "https://www.suruga-ya.jp",
+        "itemSelector": "div.item_box",
+        "title": {
+          "selector": "div.title"
+        },
+        "price": {
+          "selector": ".item_price .text-red",
+          "regex": "[0-9,０-９]+"
+        },
+        "url": {
+          "selector": "div.title a",
+          "attr": "href"
+        },
+        "image": {
+          "selector": "img",
+          "attr": "src"
+        },
+        "condition": "used",
+        "maxItems": 20
+      }
+    }
+  ],
+  "updatedAt": "2026-07-13T18:16:19.044Z"
+}
