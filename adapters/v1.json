@@ -5,7 +5,7 @@
       "id": "rakuten",
       "displayName": "楽天市場",
       "engine": "api",
-      "endpoint": "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260401",
+      "endpoint": "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20220601",
       "defaultParams": {
         "format": "json",
         "hits": "10",
@@ -194,5 +194,5 @@
       }
     }
   ],
-  "updatedAt": "2026-07-13T18:16:19.044Z"
+  "updatedAt": "2026-07-14T14:54:17.986Z"
 }
