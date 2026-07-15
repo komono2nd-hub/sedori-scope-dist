@@ -1,3 +1,628 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><title>sedori-scope 配信ページ</title></head>
-<body><p>sedori-scope の配信用ページです。ダウンロードは購入元（BOOTH）の商品ページからお願いします。</p></body></html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ホリダス（Horidasu）｜せどり価格比較・在庫利益管理・メルカリ一括値下げツール【買い切り】</title>
+<meta name="description" content="ホリダスは、JANコードでの価格比較・在庫利益管理・メルカリの一括値下げ（半自動）を1つにまとめた、せどり事業者向けの買い切りデスクトップアプリです。月額課金なし。">
+<!-- favicon（外部ファイル不要のインラインSVG。404回避） -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232e8b6d'/%3E%3Cpath d='M9 17l5 5 9-11' stroke='%23fff' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #0b0f14;
+    --bg-soft: #121822;
+    --surface: #171f2b;
+    --surface-2: #1e2836;
+    --border: #2a3547;
+    --text: #eef2f7;
+    --text-dim: #a9b4c4;
+    --text-faint: #7c889b;
+    --accent: #4fd1a5;
+    --accent-strong: #2fb886;
+    --accent-contrast: #06251b;
+    --warn-bg: #2a2013;
+    --warn-border: #4a3a1f;
+    --warn-text: #e8c887;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f8fb;
+      --bg-soft: #eef1f6;
+      --surface: #ffffff;
+      --surface-2: #f2f5f9;
+      --border: #dde3ec;
+      --text: #131a24;
+      --text-dim: #4b5567;
+      --text-faint: #7a8496;
+      --accent: #17966f;
+      --accent-strong: #0e7d5b;
+      --accent-contrast: #ffffff;
+      --warn-bg: #fff6e6;
+      --warn-border: #f0dca8;
+      --warn-text: #7a5a12;
+      --shadow: 0 10px 30px rgba(20,30,50,0.08);
+    }
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+      "Yu Gothic", "Segoe UI", Roboto, sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { max-width: 100%; }
+
+  .wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    max-width: 1040px;
+    margin: 0 auto;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.02em;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 64px 0 48px;
+    text-align: center;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(1.9rem, 5vw, 2.9rem);
+    margin: 0 0 20px;
+    letter-spacing: -0.01em;
+    line-height: 1.35;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p.lead {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--text-dim);
+    max-width: 640px;
+    margin: 0 auto 34px;
+    white-space: pre-line;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    font-weight: 700;
+    font-size: 1.02rem;
+    padding: 15px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s ease;
+  }
+  .btn-primary:hover { transform: translateY(-2px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 15px 26px;
+    border-radius: 12px;
+    text-decoration: none;
+    border: 1px solid var(--border);
+  }
+  .hero-note {
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+
+  /* ---------- Hero visual ---------- */
+  .hero-visual {
+    margin: 44px auto 0;
+    max-width: 780px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .hero-visual-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .hv-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+  }
+  .hv-row strong { color: var(--text); font-weight: 700; }
+  .hv-cheapest { color: var(--accent); font-weight: 700; }
+
+  /* ---------- Section shell ---------- */
+  section { padding: 56px 0; }
+  .section-head { text-align: center; margin-bottom: 40px; }
+  .section-head .eyebrow {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .section-head h2 {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    margin: 0 0 10px;
+  }
+  .section-head p {
+    color: var(--text-dim);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Features ---------- */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 24px;
+  }
+  .feature-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--accent) 15%, transparent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+  }
+  .feature-card h3 {
+    font-size: 1.08rem;
+    margin: 0 0 10px;
+  }
+  .feature-card p {
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    margin: 0;
+  }
+  .feature-card .note {
+    margin-top: 12px;
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    border-top: 1px dashed var(--border);
+    padding-top: 12px;
+  }
+
+  /* ---------- Environment table ---------- */
+  .env-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .env-table tr { border-top: 1px solid var(--border); }
+  .env-table tr:first-child { border-top: none; }
+  .env-table th, .env-table td {
+    text-align: left;
+    padding: 16px 20px;
+    vertical-align: top;
+    font-size: 0.92rem;
+  }
+  .env-table th {
+    width: 30%;
+    color: var(--text);
+    background: var(--surface-2);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .env-table td { color: var(--text-dim); }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { display: flex; flex-direction: column; gap: 12px; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 4px 20px;
+  }
+  .faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    padding: 16px 0;
+    font-weight: 700;
+    font-size: 0.98rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary .q-mark {
+    color: var(--accent);
+    margin-right: 8px;
+  }
+  .faq-item summary .chevron {
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    color: var(--text-faint);
+  }
+  .faq-item[open] summary .chevron { transform: rotate(180deg); }
+  .faq-item .a {
+    padding: 0 0 18px;
+    color: var(--text-dim);
+    font-size: 0.9rem;
+  }
+
+  /* ---------- Terms ---------- */
+  .terms-box {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 14px;
+    padding: 26px 28px;
+  }
+  .terms-box ul { margin: 0; padding-left: 1.2em; }
+  .terms-box li { margin-bottom: 12px; color: var(--warn-text); font-size: 0.92rem; }
+  .terms-box li:last-child { margin-bottom: 0; }
+  .terms-box strong { color: var(--warn-text); }
+
+  /* ---------- Final CTA ---------- */
+  .final-cta {
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 48px 24px;
+  }
+  .final-cta h2 { margin: 0 0 12px; font-size: 1.5rem; }
+  .final-cta p { color: var(--text-dim); margin: 0 0 26px; }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    border-top: 1px solid var(--border);
+    padding: 36px 0 46px;
+    color: var(--text-faint);
+    font-size: 0.82rem;
+  }
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+  }
+  .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+  .footer-links a { text-decoration: none; color: var(--text-faint); }
+  .footer-links a:hover { color: var(--text-dim); }
+
+  .header-cta span.short-only { display: none; }
+
+  @media (max-width: 760px) {
+    .features { grid-template-columns: 1fr; }
+    .hero-visual-grid { grid-template-columns: 1fr; }
+    .env-table th { width: 40%; }
+    .site-header-inner { padding: 12px 16px; }
+    .header-cta span.long { display: none; }
+    .header-cta span.short-only { display: inline; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-header-inner">
+    <div class="brand">
+      <span class="brand-mark">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 12L10 18L20 6" stroke="#06251b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      ホリダス
+    </div>
+    <a class="header-cta" href="#" target="_blank" rel="noopener">
+      <!-- TODO: BOOTH商品ページURL確定後に差し替え -->
+      <span class="long">購入する</span><span class="short-only">購入</span>
+    </a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <span class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        ¥19,800 買い切り・月額課金なし
+      </span>
+      <h1>何十個ものJANコードを、<br>いちいち手で検索していませんか？</h1>
+      <p class="lead">ホリダス（Horidasu）は、価格比較・在庫利益管理・メルカリの値下げ作業を1つにまとめた、
+せどり事業者向けの買い切りデスクトップアプリです。</p>
+
+      <div class="hero-actions">
+        <a class="btn-primary" href="#" target="_blank" rel="noopener">
+          <!-- TODO: BOOTH商品ページURL確定後に差し替え -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4h16v16H4z" stroke="currentColor" stroke-width="0" fill="none"/>
+            <path d="M6 3h12l1 5H5l1-5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M5 8h14v12H5z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M9 12a3 3 0 0 0 6 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          購入する
+        </a>
+        <a class="btn-secondary" href="#faq">
+          よくある質問を見る
+        </a>
+      </div>
+      <p class="hero-note">Mac（Apple Silicon）/ Windows 10・11 対応 ／ Chrome拡張機能と組み合わせて利用します ／ 販売はBOOTHにて</p>
+
+      <!-- 簡易ダミーUI（実画面ではなくSVG/HTMLによる図解） -->
+      <div class="hero-visual">
+        <div class="hero-visual-grid">
+          <div class="hv-row"><span>Amazon</span><strong>¥2,480</strong></div>
+          <div class="hv-row"><span>楽天市場</span><strong>¥2,650</strong></div>
+          <div class="hv-row"><span>Yahoo!ショッピング</span><strong>¥2,590</strong></div>
+          <div class="hv-row"><span>メルカリ</span><strong class="hv-cheapest">¥2,100</strong></div>
+          <div class="hv-row"><span>ラクマ</span><strong>¥2,300</strong></div>
+          <div class="hv-row"><span>駿河屋</span><strong>¥2,780</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURES ============ -->
+    <section id="features">
+      <div class="section-head">
+        <div class="eyebrow">Features</div>
+        <h2>3つの機能を、1つのアプリに</h2>
+        <p>サイトを1つずつ開いて確認する時間、エクセルで台帳を作る手間を減らします。</p>
+      </div>
+
+      <div class="features">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="6.5" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M15 15L20.5 20.5" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <path d="M7.5 10h5M10 7.5v5" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>JANコードでまとめて価格比較</h3>
+          <p>
+            商品のJANコードを登録するだけで、Amazon・楽天市場・Yahoo!ショッピング・メルカリ・ラクマ・ヤフオク！・駿河屋の価格を一覧表示。
+            一番安いところ、一番高く売れそうなところが、サイトを1つずつ開かなくても一目でわかります。
+          </p>
+          <div class="note">対応表にない他サイトも、2クリックの登録操作で比較対象に追加できます。</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="4" width="7" height="7" rx="1.4" stroke="var(--accent)" stroke-width="2"/>
+              <rect x="13" y="4" width="7" height="7" rx="1.4" stroke="var(--accent)" stroke-width="2"/>
+              <rect x="4" y="13" width="7" height="7" rx="1.4" stroke="var(--accent)" stroke-width="2"/>
+              <path d="M14.5 17h5M17 14.5v5" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>在庫・利益・売上の管理</h3>
+          <p>
+            仕入れた商品の在庫数・仕入れ値・想定利益をアプリ内で一元管理。メルカリの出品を取り込むと、
+            売却済み商品を自動検知して売上記録を作成し、利益もあわせて計算します。
+          </p>
+          <div class="note">エクセルで台帳を管理する手間から解放されます。</div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 9l6 6 6-6" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M12 4v11" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+              <rect x="4" y="18" width="16" height="2.4" rx="1.2" fill="var(--accent)"/>
+            </svg>
+          </div>
+          <h3>メルカリの一括値下げ（半自動）</h3>
+          <p>
+            値下げしたい商品と新しい価格をアプリ側で指定し、「実行」ボタンを押すと、Chrome拡張機能が1件ずつ
+            メルカリの商品ページを開いて価格を更新していきます。
+          </p>
+          <div class="note">
+            お客様の「実行」操作を起点にした半自動の作業補助です。スケジュールによる無人自動実行は行わず、
+            1件ごとに待機時間を挟み、実行件数にも上限を設けています。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENVIRONMENT ============ -->
+    <section id="environment">
+      <div class="section-head">
+        <div class="eyebrow">System Requirements</div>
+        <h2>動作環境</h2>
+      </div>
+      <table class="env-table">
+        <tr>
+          <th>Mac</th>
+          <td>Apple Silicon（M1以降）搭載モデル専用です。Intel Mac には対応していません。macOS 13以降を目安にご利用ください。</td>
+        </tr>
+        <tr>
+          <th>Windows</th>
+          <td>Windows 10 / 11（64bit版）</td>
+        </tr>
+        <tr>
+          <th>Chrome拡張機能</th>
+          <td>価格比較（一部サイト）とメルカリ連携機能を使うには、Google Chrome（最新版）と専用の拡張機能のインストールが必要です。</td>
+        </tr>
+        <tr>
+          <th>インターネット接続</th>
+          <td>価格比較・メルカリ連携・ライセンス確認・アップデート確認などの機能はすべてインターネット接続を前提としています。</td>
+        </tr>
+      </table>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section id="faq">
+      <div class="section-head">
+        <div class="eyebrow">FAQ</div>
+        <h2>よくある質問</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary><span><span class="q-mark">Q.</span>何台のパソコンで使えますか？</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="a">ご購入者様ご本人のPC1台までを想定しています。PCの機種変更・買い替えなどでライセンスを移行したい場合は、BOOTHメッセージにてご申告いただければ、新しいPCへの移行対応をいたします。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span><span class="q-mark">Q.</span>月額料金はかかりますか？</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="a">かかりません。買い切り型の販売ですので、ご購入時の代金以外の費用は発生しません。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span><span class="q-mark">Q.</span>Chromeの拡張機能は何のために必要ですか？</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="a">一部サイトの価格情報の取得と、メルカリの出品取り込み・一括値下げ機能を動かすために必要です。拡張機能単体では動作せず、必ずアプリ本体と組み合わせてご利用いただきます。</div>
+        </details>
+        <details class="faq-item">
+          <summary><span><span class="q-mark">Q.</span>アップデートは無料ですか？</span>
+            <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="a">同一メジャーバージョン内のアップデート（不具合修正・機能追加）は無料です。新しいバージョンが公開されるとアプリ内に更新通知が表示されますので、その案内に従って更新してください。次のメジャーバージョンについては、別途ご案内します。</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============ TERMS ============ -->
+    <section id="terms">
+      <div class="section-head">
+        <div class="eyebrow">Terms</div>
+        <h2>利用規約・免責事項（要点）</h2>
+        <p>詳細はご購入前に商品ページ・同梱の手順書をご確認ください。</p>
+      </div>
+      <div class="terms-box">
+        <ul>
+          <li>本ツールは各ECサイトの公開ページの情報を、お客様ご自身の操作を起点に取得・整理するものです。各サイトの利用規約の遵守については、お客様ご自身の責任でご確認・ご対応ください。</li>
+          <li>メルカリの一括値下げ機能は、お客様ご自身が「実行」ボタンを押すことで動作する<strong>半自動の作業補助</strong>です。無人での自動実行は行いませんが、メルカリ側の判断によりアカウントに制限がかかる等の事態が生じても、当方は責任を負いかねます。</li>
+          <li>ライセンスキーの<strong>共有・譲渡・転売・再配布は禁止</strong>します。発覚した場合は当該キーを無効化し、アプリが起動できなくなります。ご購入者様ご本人のみでご利用ください。</li>
+          <li>デジタルコンテンツの性質上、<strong>ご購入後の返金は原則お受けしておりません</strong>。ご購入前に動作環境・機能内容を十分にご確認ください。</li>
+          <li>サポートはBOOTH商品ページの「メッセージ」機能にて承ります（セットアップに関するご質問・不具合報告が対象。個別PC環境やせどり業務・各サイト規約解釈のご相談は対応範囲外です）。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section id="cta">
+      <div class="final-cta">
+        <h2>ホリダスで、価格チェックと値下げ作業の時間を減らす</h2>
+        <p>¥19,800（税込）・買い切り・月額課金なし。1年お使いいただくと月あたり1,650円です。<br>ご購入後、BOOTHのメッセージ機能でライセンスキーをお送りします。</p>
+        <a class="btn-primary" href="#" target="_blank" rel="noopener">
+          <!-- TODO: BOOTH商品ページURL確定後に差し替え -->
+          購入する
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap footer-inner">
+    <div>&copy; 2026 ホリダス（Horidasu）</div>
+    <div class="footer-links">
+      <a href="#" target="_blank" rel="noopener"><!-- TODO: BOOTH商品ページURL確定後に差し替え -->購入</a>
+      <a href="/privacy.html">プライバシーポリシー</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
