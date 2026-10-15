@@ -22,8 +22,25 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": "https://shiranagi.com/#organization",
+      "name": "株式会社白凪",
+      "url": "https://shiranagi.com/"
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://dist.shiranagi.com/#website",
+      "name": "ホリダス",
+      "alternateName": ["HORIDASU", "Horidasu", "ほりだす", "ホリダス せどりアプリ"],
+      "url": "https://dist.shiranagi.com/",
+      "inLanguage": "ja",
+      "publisher": { "@id": "https://shiranagi.com/#organization" }
+    },
+    {
       "@type": "SoftwareApplication",
       "name": "ホリダス",
+      "url": "https://dist.shiranagi.com/",
+      "publisher": { "@id": "https://shiranagi.com/#organization" },
       "alternateName": ["HORIDASU", "horidasu"],
       "operatingSystem": "macOS, Windows",
       "applicationCategory": "BusinessApplication",

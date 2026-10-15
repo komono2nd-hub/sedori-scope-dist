@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+# アプリの配信用ファイル（検索結果に出す必要がない）
+Disallow: /adapters/
+Disallow: /license/
+Disallow: /latest.json
+Disallow: /latest.sig
+
+Sitemap: https://dist.shiranagi.com/sitemap.xml
